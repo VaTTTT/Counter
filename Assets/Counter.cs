@@ -4,34 +4,34 @@ using TMPro;
 
 public class Counter : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _valueInfo; 
-    private bool _ifEnabled;
-    private int _currentValue;
-    private float _timeStep;
-    private int _valueStep;
+    [SerializeField] private TextMeshProUGUI _valueInfo;
+    [SerializeField] private float _timeStep;
+    [SerializeField] private int _valueStep;
 
+    private bool _isCounterRunning;
+    private int _currentValue;
+    private WaitForSeconds _waitForSeconds;
     
-    void Start()
+    private void Start()
     {
-        _ifEnabled = false;
+        _waitForSeconds = new WaitForSeconds(_timeStep);   
+        _isCounterRunning = false;
         _currentValue = 0;
-        _timeStep = 0.5f;
-        _valueStep = 1;
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (!_ifEnabled)
+            if (!_isCounterRunning)
             {
-                _ifEnabled = true;
+                _isCounterRunning = true;
                 
                 StartCoroutine(RunCounter());
             }
             else
             {
-                _ifEnabled = false;
+                _isCounterRunning = false;
 
                 StopCoroutine(nameof(RunCounter));
             }
@@ -40,13 +40,13 @@ public class Counter : MonoBehaviour
 
     private IEnumerator RunCounter()
     {
-        while (_ifEnabled)
+        while (_isCounterRunning)
         {
             _currentValue += _valueStep;
 
             _valueInfo.text = _currentValue.ToString();
 
-            yield return new WaitForSeconds(_timeStep);
+            yield return _waitForSeconds;
         } 
     }
 }

@@ -447,6 +447,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _valueInfo: {fileID: 243243645}
+  _timeStep: 0.5
+  _valueStep: 1
 --- !u!4 &834305503
 Transform:
   m_ObjectHideFlags: 0
