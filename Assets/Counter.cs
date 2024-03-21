@@ -1,8 +1,10 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class Counter : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI _valueInfo; 
     private bool _ifEnabled;
     private int _currentValue;
     private float _timeStep;
@@ -42,7 +44,7 @@ public class Counter : MonoBehaviour
         {
             _currentValue += _valueStep;
 
-            Debug.Log(_currentValue);
+            _valueInfo.text = _currentValue.ToString();
 
             yield return new WaitForSeconds(_timeStep);
         } 
